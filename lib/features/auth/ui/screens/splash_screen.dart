@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
               const Spacer(),
               SvgPicture.asset(
                 AssetsPath.appLogoSvg,
-                width: 80,
+                width: 180,
               ),
               const Spacer(),
               CircularProgressIndicator()

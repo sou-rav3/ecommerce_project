@@ -9,6 +9,10 @@ class AppThemeData{
         color: AppColors.themeColor,
       ),
         scaffoldBackgroundColor: Colors.white,
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.white,
+        elevation: 3,
+      )
     );
   }
 

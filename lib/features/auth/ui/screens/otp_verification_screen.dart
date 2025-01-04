@@ -1,21 +1,20 @@
 import 'package:ecommerce_project/app/app_colors.dart';
-import 'package:ecommerce_project/features/auth/ui/screens/otp_verification_screen.dart';
 import 'package:ecommerce_project/features/auth/ui/widgets/app_logo_widget.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
-class EmailVerificationScreen extends StatefulWidget {
-  const EmailVerificationScreen({super.key});
+class OtpVerificationScreen extends StatefulWidget {
+  const OtpVerificationScreen({super.key});
 
-  static const String name = '/email-verification';
+  static const String name = '/otp-verification';
 
   @override
-  State<EmailVerificationScreen> createState() =>
-      _EmailVerificationScreenState();
+  State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
 }
 
-class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
-  final TextEditingController _emailTEController = TextEditingController();
+class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
+  final TextEditingController _otpTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -31,37 +30,33 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                 const SizedBox(height: 80),
                 const AppLogoWidget(),
                 const SizedBox(height: 26),
-                Text('Welcome Back',
+                Text('Enter OTP Code',
                     style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: 08),
-                Text('Please Enter Your Email Address',
+                Text('A 4 digit OTP code has been sent',
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Colors.grey,
                           fontWeight: FontWeight.w500,
                         )),
                 const SizedBox(height: 34),
-                TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: _emailTEController,
-                  decoration: const InputDecoration(
-                    hintText: "Email Address",
+                PinCodeTextField(
+                  length: 6,
+                  obscureText: false,
+                  animationType: AnimationType.fade,
+                  animationDuration: const Duration(milliseconds: 300),
+                  pinTheme: PinTheme(
+                    shape: PinCodeFieldShape.box,
+                    selectedFillColor: AppColors.themeColor,
+                    activeFillColor: AppColors.themeColor,
                   ),
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (String? value) {
-                    if(value?.trim().isEmpty??true){
-                      return "Enter Your Email Address";
-                    }
-                    if(EmailValidator.validate(value!) == false) {
-                      return "Enter Your Valid Email Address";
-                    }
-                    return null;
-                  },
+                  keyboardType: TextInputType.number,
+                  appContext: context,
+                  controller: _otpTEController,
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
                     // if(_formKey.currentState!.validate()) {}
-                    Navigator.pushNamed(context, OtpVerificationScreen.name);
                   },
                   child: const Text("Next"),
                 ),
